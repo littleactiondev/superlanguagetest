@@ -47,7 +47,15 @@ export async function initializeDatabase() {
       if (file.endsWith('.sql')) {
         console.log(`Running migration: ${file}`);
         const sql = fs.readFileSync(path.join(migrationsDir, file), 'utf-8');
-        await pool.query(sql);
+        try {
+          await pool.query(sql);
+        } catch (error: any) {
+          // Ignore duplicate key errors (data already exists)
+          if (error.code !== '23505') {
+            throw error;
+          }
+          console.log(`  ⚠️  Some data already exists, skipping duplicates`);
+        }
       }
     }
 
@@ -58,7 +66,15 @@ export async function initializeDatabase() {
         if (file.endsWith('.sql')) {
           console.log(`Running seed: ${file}`);
           const sql = fs.readFileSync(path.join(seedsDir, file), 'utf-8');
-          await pool.query(sql);
+          try {
+            await pool.query(sql);
+          } catch (error: any) {
+            // Ignore duplicate key errors (data already exists)
+            if (error.code !== '23505') {
+              throw error;
+            }
+            console.log(`  ⚠️  Some data already exists, skipping duplicates`);
+          }
         }
       }
     }

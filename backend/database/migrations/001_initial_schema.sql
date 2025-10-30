@@ -106,7 +106,8 @@ INSERT INTO exams (id, name, full_name, description, language, is_available, ico
 ('IELTS', 'IELTS', 'International English Language Testing System', 'English language proficiency test', 'English', false, '🇬🇧'),
 ('JLPT', 'JLPT', 'Japanese Language Proficiency Test', 'Japanese language proficiency test', 'Japanese', false, '🇯🇵'),
 ('HSK', 'HSK', 'Hanyu Shuiping Kaoshi', 'Chinese language proficiency test', 'Chinese', true, '🇨🇳'),
-('TOPIK', 'TOPIK', 'Test of Proficiency in Korean', 'Korean language proficiency test', 'Korean', false, '🇰🇷');
+('TOPIK', 'TOPIK', 'Test of Proficiency in Korean', 'Korean language proficiency test', 'Korean', false, '🇰🇷')
+ON CONFLICT (id) DO NOTHING;
 
 -- Insert HSK levels
 INSERT INTO exam_levels (exam_id, level_name, display_order) VALUES
