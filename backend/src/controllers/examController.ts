@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import pool from '../config/database.js';
 
 // Get all exams
-export async function getAllExams(req: Request, res: Response) {
+export async function getAllExams(_req: Request, res: Response) {
   try {
     const result = await pool.query(`
       SELECT e.*,
@@ -158,7 +158,7 @@ export async function getTestQuestions(req: Request, res: Response) {
 export async function submitTest(req: Request, res: Response) {
   try {
     const { testId } = req.params;
-    const { answers, userId = 'guest', startTime, endTime } = req.body;
+    const { answers } = req.body;
 
     // Get all questions with correct answers
     const questionsResult = await pool.query(
