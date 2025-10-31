@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { examApi, Question, TestDetails, UserAnswer } from '../services/api';
-import { Clock, AlertCircle, CheckCircle } from 'lucide-react';
+import { Clock, AlertCircle } from 'lucide-react';
 
 const TestPage: React.FC = () => {
   const { testId } = useParams<{ testId: string }>();
