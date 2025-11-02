@@ -12,11 +12,8 @@ const { Pool } = pg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Debug: Log DATABASE_URL status
-console.log('🔍 DATABASE_URL exists:', !!process.env.DATABASE_URL);
-console.log('🔍 DATABASE_URL starts with:', process.env.DATABASE_URL?.substring(0, 20));
-
 // Database configuration
+// Prefer DATABASE_URL (for production) over individual env vars (for local dev)
 export const pool = new Pool(
   process.env.DATABASE_URL
     ? {
@@ -36,8 +33,6 @@ export const pool = new Pool(
         connectionTimeoutMillis: 2000,
       }
 );
-
-console.log('✅ Pool configuration completed');
 
 // Test database connection
 export async function testConnection() {
