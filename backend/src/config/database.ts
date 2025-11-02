@@ -52,8 +52,10 @@ export async function initializeDatabase() {
   try {
     console.log('🔧 Initializing database...');
 
-    const migrationsDir = path.join(__dirname, '../../database/migrations');
-    const seedsDir = path.join(__dirname, '../../database/seeds');
+    // In production (dist/), database is at dist/database
+    // __dirname is dist/config, so ../database
+    const migrationsDir = path.join(__dirname, '../database/migrations');
+    const seedsDir = path.join(__dirname, '../database/seeds');
 
     // Run migrations
     const migrationFiles = fs.readdirSync(migrationsDir).sort();
